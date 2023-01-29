@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_api_backend/src/constant/colors.dart';
-import 'package:quiz_app_api_backend/src/view/home_screen.dart';
+import 'package:quiz_app_api_backend/src/view/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,23 +22,23 @@ class MyApp extends StatelessWidget {
             fontSize: 22,
             fontWeight: FontWeight.bold,
             letterSpacing: 1,
-            color: yellow,
+            color: purple,
           ),
           headline5: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
             letterSpacing: 1,
-            color: yellow,
+            color: purple,
           ),
           headline6: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             letterSpacing: 1,
-            color: deepPurple,
+            color: Colors.white,
           ),
         ),
       ),
-      home: const HomeScreen(),
+      home: const OnboardingScreen(),
     );
   }
 }
