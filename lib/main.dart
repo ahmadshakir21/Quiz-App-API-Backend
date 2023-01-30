@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        progressIndicatorTheme: const ProgressIndicatorThemeData(color: yellow),
+        progressIndicatorTheme:
+            const ProgressIndicatorThemeData(color: deepPurple),
         fontFamily: GoogleFonts.allerta().fontFamily,
         textTheme: const TextTheme(
           headline1: TextStyle(

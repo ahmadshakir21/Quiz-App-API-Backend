@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app_api_backend/src/constant/colors.dart';
+import 'package:quiz_app_api_backend/src/view/quiz_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -10,30 +11,27 @@ class OnboardingScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.all(10),
+      body: Center(
         child: Column(
           children: [
-            SizedBox(
-                width: width * 0.75,
-                height: height * 0.75,
-                child: Image.asset("assets/images/4119038.png")),
-            Text(
-              "Welcome to Quiz App",
-              style: Theme.of(context).textTheme.headline1,
+            Container(
+              width: width * 0.75,
+              height: height * 0.75,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Image.asset("assets/images/4119038.png"),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
+            Container(
               width: width * 0.75,
               height: height * 0.05,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => QuizScreen(),
+                    ));
+                  },
                   style: ElevatedButton.styleFrom(
-                    primary: purple,
+                    primary: deepPurple,
                   ),
                   child: Text(
                     "Go to Q&A Screen",
