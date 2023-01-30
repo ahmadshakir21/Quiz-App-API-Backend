@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
           headline6: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             letterSpacing: 1,
             color: Colors.white,
           ),

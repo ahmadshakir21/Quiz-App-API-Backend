@@ -14,6 +14,9 @@ class _QuizScreenState extends State<QuizScreen> {
   PageController? controller = PageController(initialPage: 0);
   ApiService apiService = ApiService();
   var optionList = [];
+  var isLoaded = false;
+  var currentQuestionIndex = 0;
+  var optionColor = [yellow, yellow, yellow, yellow];
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +44,94 @@ class _QuizScreenState extends State<QuizScreen> {
                     );
                   } else if (!snapshot.hasData) {
                     return const Center(child: Text("No Data"));
-                  } else if (snapshot.hasData) {}
+                  } else if (snapshot.hasData) {
+                    var data = snapshot.data!.results;
+
+                    if (isLoaded == false) {
+                      optionList = data[currentQuestionIndex].incorrect_answers;
+                      optionList.add(data[currentQuestionIndex].correct_answer);
+                      optionList.shuffle();
+                      isLoaded = true;
+                    }
+
+                    return Container(
+                      width: width * 0.9,
+                      height: height * 0.7,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Question ${currentQuestionIndex + 1} / ${data.length}",
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                          const Divider(
+                            color: deepPurple,
+                            thickness: 1.5,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            data[currentQuestionIndex].question,
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          ListView.builder(
+                            itemCount: optionList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              var answer =
+                                  data[currentQuestionIndex].correct_answer;
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (answer.toString() ==
+                                        optionList[index].toString()) {
+                                      optionColor[index] = green;
+                                    } else {
+                                      optionColor[index] == lightRed;
+                                    }
+
+                                    if (currentQuestionIndex < data.length) {
+                                      Future.delayed(
+                                        const Duration(seconds: 1),
+                                        () => currentQuestionIndex++,
+                                      );
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  width: width * 0.9,
+                                  height: height * 0.08,
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  decoration: BoxDecoration(
+                                      color: optionColor[index],
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Center(
+                                      child: Text(
+                                    optionList[index],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(color: deepPurple),
+                                  )),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                   return const Center(
-                    child: Text("o"),
+                    child: Text(""),
                   );
                 },
               ),
             ],
           ),
-          // child: Column(children: [
           //   PageView.builder(
           //     controller: controller!,
           //     physics: const NeverScrollableScrollPhysics(),
